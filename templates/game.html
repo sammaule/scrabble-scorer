@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Current Scores</legend>
+                <div>
+                    <!-- TODO Put the scores in a for loop depending on the number of players there are -->
+                    <h3> Player 1 Score: 125</h3>
+                    <h3> Player 2 Score: 125</h3>
+                    <h3> Player 3 Score: 125</h3>
+                    <h3> Player 4 Score: 125</h3>
+                </div>
+            </fieldset>
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Update Scores</legend>
+               <!-- TODO Put the div classes in a for loop depending on the number of players there are -->
+                <div class="form-group">
+                    {{ form.player_1_score.label(class="form-control-label") }}
+                    {% if form.player_1_score.errors %}
+                        {{ form.player_1_score(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.player_1_score.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.player_1_score(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.player_2_score.label(class="form-control-label") }}
+                    {% if form.player_2_score.errors %}
+                        {{ form.player_2_score(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.player_2_score.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.player_2_score(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.player_3_score.label(class="form-control-label") }}
+                    {% if form.player_3_score.errors %}
+                        {{ form.player_3_score(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.player_3_score.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.player_3_score(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.player_4_score.label(class="form-control-label") }}
+                    {% if form.player_4_score.errors %}
+                        {{ form.player_4_score(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.player_4_score.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.player_4_score(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+            <div class="form-group">
+                {{ form.end_game(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+{% endblock content %}
