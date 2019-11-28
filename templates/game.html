@@ -6,68 +6,36 @@
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Current Scores</legend>
                 <div>
-                    <!-- TODO Put the scores in a for loop depending on the number of players there are -->
-                    <h3> Player 1 Score: 125</h3>
-                    <h3> Player 2 Score: 125</h3>
-                    <h3> Player 3 Score: 125</h3>
-                    <h3> Player 4 Score: 125</h3>
+                    {% for player in range(num_players | int) %}
+                    <!-- TODO Add the scores for each player-->
+                        <p class="font-weight-bold"> Player {{player}} score: </p>
+                    {% endfor %}
+                </div>
+                <div>
+                    {% for name in player_names %}
+                        <p class="font-weight-bold"> {{ name }} </p>
+                    {% endfor %}
                 </div>
             </fieldset>
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Update Scores</legend>
-               <!-- TODO Put the div classes in a for loop depending on the number of players there are -->
+               {% for field in form %}
+                {% if field.type == "IntegerField" %}
                 <div class="form-group">
-                    {{ form.player_1_score.label(class="form-control-label") }}
-                    {% if form.player_1_score.errors %}
-                        {{ form.player_1_score(class="form-control form-control-lg is-invalid") }}
+                    {{ field.label(class="form-control-label") }}
+                    {% if field.errors %}
+                        {{ field(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
-                            {% for error in form.player_1_score.errors %}
+                            {% for error in field.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.player_1_score(class="form-control form-control-lg") }}
+                        {{ field(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
-                <div class="form-group">
-                    {{ form.player_2_score.label(class="form-control-label") }}
-                    {% if form.player_2_score.errors %}
-                        {{ form.player_2_score(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.player_2_score.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.player_2_score(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.player_3_score.label(class="form-control-label") }}
-                    {% if form.player_3_score.errors %}
-                        {{ form.player_3_score(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.player_3_score.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.player_3_score(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
-                <div class="form-group">
-                    {{ form.player_4_score.label(class="form-control-label") }}
-                    {% if form.player_4_score.errors %}
-                        {{ form.player_4_score(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
-                            {% for error in form.player_4_score.errors %}
-                                <span>{{ error }}</span>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.player_4_score(class="form-control form-control-lg") }}
-                    {% endif %}
-                </div>
+                {% endif %}
+                {% endfor %}
             </fieldset>
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}
