@@ -11,35 +11,37 @@ class NewGameForm(FlaskForm):
                               choices=[('2', '2'), ('3', '3'), ('4', '4')])
     submit = SubmitField('Next')
 
+# Potential query to get player names
+# {db.session.query(Player).first().player}
 
 class TwoPlayerGameForm(FlaskForm):
-    player_1_score = IntegerField(f'{db.session.query(Player).first().player} turn:',
+    player_1_score = IntegerField('Player 1 turn:',
                                   validators=[InputRequired()])
-    player_2_score = IntegerField(f'{db.session.query(Player).offset(1).first().player} turn:',
+    player_2_score = IntegerField('Player 2 turn:',
                                   validators=[InputRequired()])
     submit = SubmitField('Update Scores')
     end_game = SubmitField('End Game')
 
 
 class ThreePlayerGameForm(FlaskForm):
-    player_1_score = IntegerField(f'{db.session.query(Player).first().player} turn:',
+    player_1_score = IntegerField('Player 1 turn:',
                                   validators=[InputRequired()])
-    player_2_score = IntegerField(f'{db.session.query(Player).offset(1).first().player} turn:',
+    player_2_score = IntegerField('Player 2 turn:',
                                   validators=[InputRequired()])
-    player_3_score = IntegerField(f'{db.session.query(Player).offset(2).first().player} turn:',
+    player_3_score = IntegerField('Player 3 turn:',
                                   validators=[InputRequired()])
     submit = SubmitField('Update Scores')
     end_game = SubmitField('End Game')
 
 
 class FourPlayerGameForm(FlaskForm):
-    player_1_score = IntegerField(f'{db.session.query(Player).first().player} turn:',
+    player_1_score = IntegerField('Player 1 turn:',
                                   validators=[InputRequired()])
-    player_2_score = IntegerField(f'{db.session.query(Player).offset(1).first().player} turn:',
+    player_2_score = IntegerField('Player 2 turn:',
                                   validators=[InputRequired()])
-    player_3_score = IntegerField(f'{db.session.query(Player).offset(2).first().player} turn:',
+    player_3_score = IntegerField('Player 3 turn:',
                                   validators=[InputRequired()])
-    player_4_score = IntegerField(f'{db.session.query(Player).offset(3).first().player} turn:',
+    player_4_score = IntegerField('Player 4 turn:',
                                   validators=[InputRequired()])
     submit = SubmitField('Update Scores')
     end_game = SubmitField('End Game')

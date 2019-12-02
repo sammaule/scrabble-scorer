@@ -69,6 +69,7 @@ def game():
         sum_scores.append(db.session.query(func.sum(Score.score)).filter_by(player_id=4).scalar())
         form = FourPlayerGameForm()
 
+    players = Player.query.all()
     # Add latest turn scores to the database
     if form.validate_on_submit():
         score_1 = Score(score=form.player_1_score.data, player_id=1)

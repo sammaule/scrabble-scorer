@@ -6,37 +6,46 @@
             <fieldset class="list-group">
                 <legend class="border-bottom mb-4">Current Scores</legend>
                 <div>
-                    {% if sum_scores[0] == None %}
-                        <p class="text-justify"> Player 1 score: 0 </p>
-                    {% else %}
-                        <p class="text-justify"> Player 1 score: {{ sum_scores[0] }}</p>
-                    {% endif %}
-                </div>
-                <div>
-                    {% if sum_scores[1] == None %}
-                        <p class="text-justify"> Player 2 score: 0 </p>
-                    {% else %}
-                        <p class="text-justify"> Player 2 score: {{ sum_scores[1] }}</p>
-                    {% endif %}
-                </div>
-                {% if num_players == '3' or num_players == '4' %}
-                    <div>
-                        {% if sum_scores[1] == None %}
-                            <p class="text-justify"> Player 3 score: 0 </p>
+                    {% for player in players %}
+                        {% if sum_scores[0] == None %}
+                            <p class="text-justify"> {{player}} score: 0 </p>
                         {% else %}
-                            <p class="text-justify"> Player 3 score: {{ sum_scores[2] }}</p>
+                            <p class="text-justify"> {{player}}: {{ sum_scores[0] }}</p>
                         {% endif %}
-                    </div>
-                {% endif %}
-                {% if num_players == '4' %}
-                    <div>
-                        {% if sum_scores[1] == None %}
-                            <p class="text-justify"> Player 4 score: 0 </p>
-                        {% else %}
-                            <p class="text-justify"> Player 4 score: {{ sum_scores[3] }}</p>
-                        {% endif %}
-                    </div>
-                {% endif %}
+                    {% endfor %}
+                </div>
+<!--                <div>-->
+<!--                    {% if sum_scores[0] == None %}-->
+<!--                        <p class="text-justify"> Player 1 score: 0 </p>-->
+<!--                    {% else %}-->
+<!--                        <p class="text-justify"> Player 1 score: {{ sum_scores[0] }}</p>-->
+<!--                    {% endif %}-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    {% if sum_scores[1] == None %}-->
+<!--                        <p class="text-justify"> Player 2 score: 0 </p>-->
+<!--                    {% else %}-->
+<!--                        <p class="text-justify"> Player 2 score: {{ sum_scores[1] }}</p>-->
+<!--                    {% endif %}-->
+<!--                </div>-->
+<!--                {% if num_players == '3' or num_players == '4' %}-->
+<!--                    <div>-->
+<!--                        {% if sum_scores[1] == None %}-->
+<!--                            <p class="text-justify"> Player 3 score: 0 </p>-->
+<!--                        {% else %}-->
+<!--                            <p class="text-justify"> Player 3 score: {{ sum_scores[2] }}</p>-->
+<!--                        {% endif %}-->
+<!--                    </div>-->
+<!--                {% endif %}-->
+<!--                {% if num_players == '4' %}-->
+<!--                    <div>-->
+<!--                        {% if sum_scores[1] == None %}-->
+<!--                            <p class="text-justify"> Player 4 score: 0 </p>-->
+<!--                        {% else %}-->
+<!--                            <p class="text-justify"> Player 4 score: {{ sum_scores[3] }}</p>-->
+<!--                        {% endif %}-->
+<!--                    </div>-->
+<!--                {% endif %}-->
             </fieldset>
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Update Scores</legend>
