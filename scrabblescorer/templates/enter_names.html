@@ -4,23 +4,9 @@
         <form method="POST" action="">
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Current Scores</legend>
-                <div>
-                    {% for player in range(num_players | int) %}
-                    <!-- TODO Add the scores for each player-->
-                        <p class="font-weight-bold"> Player {{player}} score: </p>
-                    {% endfor %}
-                </div>
-                <div>
-                    {% for name in player_names %}
-                        <p class="font-weight-bold"> {{ name }} </p>
-                    {% endfor %}
-                </div>
-            </fieldset>
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Update Scores</legend>
-               {% for field in form %}
-                {% if field.type == "IntegerField" %}
+                <legend class="border-bottom mb-4">Enter Names</legend>
+                {% for field in form %}
+                {% if field.type == "StringField" %}
                 <div class="form-group">
                     {{ field.label(class="form-control-label") }}
                     {% if field.errors %}
@@ -31,7 +17,7 @@
                             {% endfor %}
                         </div>
                     {% else %}
-                        {{ field(class="form-control form-control-lg") }}
+                        {{ field(class="form-control") }}
                     {% endif %}
                 </div>
                 {% endif %}
@@ -39,9 +25,6 @@
             </fieldset>
             <div class="form-group">
                 {{ form.submit(class="btn btn-outline-info") }}
-            </div>
-            <div class="form-group">
-                {{ form.end_game(class="btn btn-outline-info") }}
             </div>
         </form>
     </div>
