@@ -8,51 +8,19 @@
                 <div>
                     {% for player in players %}
                         {% if sum_scores[0] == None %}
-                            <p class="text-justify"> {{player}} score: 0 </p>
+                            <p class="text-justify"> {{player.player}} score: 0 </p>
                         {% else %}
-                            <p class="text-justify"> {{player}}: {{ sum_scores[0] }}</p>
+                            <p class="text-justify"> {{player.player}}: {{ sum_scores[(player.id)-1] }}</p>
                         {% endif %}
                     {% endfor %}
                 </div>
-<!--                <div>-->
-<!--                    {% if sum_scores[0] == None %}-->
-<!--                        <p class="text-justify"> Player 1 score: 0 </p>-->
-<!--                    {% else %}-->
-<!--                        <p class="text-justify"> Player 1 score: {{ sum_scores[0] }}</p>-->
-<!--                    {% endif %}-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                    {% if sum_scores[1] == None %}-->
-<!--                        <p class="text-justify"> Player 2 score: 0 </p>-->
-<!--                    {% else %}-->
-<!--                        <p class="text-justify"> Player 2 score: {{ sum_scores[1] }}</p>-->
-<!--                    {% endif %}-->
-<!--                </div>-->
-<!--                {% if num_players == '3' or num_players == '4' %}-->
-<!--                    <div>-->
-<!--                        {% if sum_scores[1] == None %}-->
-<!--                            <p class="text-justify"> Player 3 score: 0 </p>-->
-<!--                        {% else %}-->
-<!--                            <p class="text-justify"> Player 3 score: {{ sum_scores[2] }}</p>-->
-<!--                        {% endif %}-->
-<!--                    </div>-->
-<!--                {% endif %}-->
-<!--                {% if num_players == '4' %}-->
-<!--                    <div>-->
-<!--                        {% if sum_scores[1] == None %}-->
-<!--                            <p class="text-justify"> Player 4 score: 0 </p>-->
-<!--                        {% else %}-->
-<!--                            <p class="text-justify"> Player 4 score: {{ sum_scores[3] }}</p>-->
-<!--                        {% endif %}-->
-<!--                    </div>-->
-<!--                {% endif %}-->
             </fieldset>
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Update Scores</legend>
-               {% for field in form %}
+                {% for field in form %}
                 {% if field.type == "IntegerField" %}
                 <div class="form-group">
-                    {{ field.label(class="form-control-label") }}
+                     {{ field.label(class="form-control-label") }}
                     {% if field.errors %}
                         {{ field(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">

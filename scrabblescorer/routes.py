@@ -58,15 +58,15 @@ def game():
     # Get the scores to display
     sum_scores = []
     sum_scores.append(db.session.query(func.sum(Score.score)).join(Player).filter_by(id=1).scalar())
-    sum_scores.append(db.session.query(func.sum(Score.score)).filter_by(id=2).scalar())
+    sum_scores.append(db.session.query(func.sum(Score.score)).join(Player).filter_by(id=2).scalar())
     if num_players == '2':
         form = TwoPlayerGameForm()
     elif num_players == '3':
-        sum_scores.append(db.session.query(func.sum(Score.score)).filter_by(player_id=3).scalar())
+        sum_scores.append(db.session.query(func.sum(Score.score)).join(Player).filter_by(player_id=3).scalar())
         form = ThreePlayerGameForm()
     elif num_players == '4':
-        sum_scores.append(db.session.query(func.sum(Score.score)).filter_by(player_id=3).scalar())
-        sum_scores.append(db.session.query(func.sum(Score.score)).filter_by(player_id=4).scalar())
+        sum_scores.append(db.session.query(func.sum(Score.score)).join(Player).filter_by(player_id=3).scalar())
+        sum_scores.append(db.session.query(func.sum(Score.score)).join(Player).filter_by(player_id=4).scalar())
         form = FourPlayerGameForm()
 
     players = Player.query.all()
@@ -92,4 +92,4 @@ def game():
             flash('Game ended. The winner was [FIXME].', 'success')
             return redirect(url_for('start_game'))
     # TODO: Clear the database when game ends/starts
-    return render_template('game.html', form=form, num_players=num_players, sum_scores=sum_scores)
+    return render_template('game.html', form=form, sum_scores=sum_scores, players=players)
