@@ -81,3 +81,8 @@ class FourPlayerNameForm(FlaskForm):
                                   validators=[DataRequired()])
     submit = SubmitField('Update Scores')
     end_game = SubmitField('End Game')
+
+
+class FinalScoreForm(FlaskForm):
+    """Form to get the number of players."""
+    submit = SubmitField('New Game')

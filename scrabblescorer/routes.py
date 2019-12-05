@@ -1,8 +1,9 @@
 from flask import render_template, url_for, flash, redirect, session, request
 from scrabblescorer import app, db
 from scrabblescorer.models import Player
-from scrabblescorer.forms import TwoPlayerGameForm, NewGameForm, TwoPlayerNameForm,\
-    ThreePlayerGameForm, FourPlayerGameForm, ThreePlayerNameForm, FourPlayerNameForm
+from scrabblescorer.forms import TwoPlayerGameForm, NewGameForm, TwoPlayerNameForm, \
+    ThreePlayerGameForm, FourPlayerGameForm, ThreePlayerNameForm, FourPlayerNameForm, FinalScoreForm
+
 
 # Pre game class
 @app.route("/", methods=['GET', 'POST'])
@@ -31,13 +32,14 @@ def enter_names():
     if form.validate_on_submit():
         # Add player names to the database
         for field in form:
-            if field.type=='StringField':
+            if field.type == 'StringField':
                 player = Player(player=field.data, score=0)
                 db.session.add(player)
         db.session.commit()
         flash('Starting Game!', 'success')
         return redirect(url_for('game'))
     return render_template('enter_names.html', form=form)
+
 
 # Mid game class
 @app.route("/game", methods=['GET', 'POST'])
@@ -55,10 +57,7 @@ def game():
     if form.validate_on_submit():
         fields = [field for field in form if field.type == 'IntegerField']
         for field, player in zip(fields, players):
-            if player.score is None:
-                player.score = field.data
-            else:
-                player.score += field.data
+            player.score += field.data
         db.session.commit()
 
         # Checks which button was pressed
@@ -66,7 +65,15 @@ def game():
             flash('Scores updated.', 'success')
             return redirect(url_for('game'))
         elif form.end_game.data:
-            flash('Game ended. The winner was [FIXME].', 'success')
-            return redirect(url_for('start_game'))
-    # TODO: Clear the database when game ends/starts
+            return redirect(url_for('final_scores'))
     return render_template('game.html', form=form, players=players, num_players=num_players)
+
+
+# final scores
+@app.route("/final_scores", methods=['GET', 'POST'])
+def final_scores():
+    players = Player.query.all()
+    form = FinalScoreForm()
+    if form.validate_on_submit():
+        return redirect(url_for('start_game'))
+    return render_template('final_scores.html', form=form, players=players)

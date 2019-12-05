@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="list-group">
+                <legend class="border-bottom mb-4">Final Score</legend>
+                <div>
+                    {% for player in players %}
+                        <p class="text-justify"> {{player.player}}: {{ player.score }}</p>
+                    {% endfor %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+{% endblock content %}
