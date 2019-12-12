@@ -31,10 +31,14 @@ def enter_names():
 
     if form.validate_on_submit():
         # Add player names to the database
+        players = []
         for field in form:
             if field.type == 'StringField':
+                players.append({field.data: 0})
                 player = Player(player=field.data, score=0)
                 db.session.add(player)
+        # Get session players and scores
+        session['session_players'] = players
         db.session.commit()
         flash('Starting Game!', 'success')
         return redirect(url_for('game'))
@@ -53,11 +57,13 @@ def game():
         form = FourPlayerGameForm()
 
     players = Player.query.all()
+    session_players = session.get('players', None)
     # Add latest turn scores to the database
     if form.validate_on_submit():
         fields = [field for field in form if field.type == 'IntegerField']
-        for field, player in zip(fields, players):
+        for field, player, session_player in zip(fields, players, session_players):
             player.score += field.data
+            session_player += field.data
         db.session.commit()
 
         # Checks which button was pressed
@@ -66,7 +72,8 @@ def game():
             return redirect(url_for('game'))
         elif form.end_game.data:
             return redirect(url_for('final_scores'))
-    return render_template('game.html', form=form, players=players, num_players=num_players)
+    return render_template('game.html', form=form, players=players, num_players=num_players,
+                           session_players=session_players)
 
 
 # final scores
