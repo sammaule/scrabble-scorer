@@ -34,11 +34,12 @@ def enter_names():
         players = []
         for field in form:
             if field.type == 'StringField':
-                players.append({field.data: 0})
+                players.append(field.data)
                 player = Player(player=field.data, score=0)
                 db.session.add(player)
         # Get session players and scores
         session['session_players'] = players
+        session['scores'] = [0]*len(players)
         db.session.commit()
         flash('Starting Game!', 'success')
         return redirect(url_for('game'))
@@ -58,12 +59,16 @@ def game():
 
     players = Player.query.all()
     session_players = session.get('players', None)
+    session_scores = session.get('scores', None)
+    player_scores = [(player, score) for player, score in zip(session_players, session_scores)]
     # Add latest turn scores to the database
     if form.validate_on_submit():
         fields = [field for field in form if field.type == 'IntegerField']
-        for field, player, session_player in zip(fields, players, session_players):
+        for field, player, score in zip(fields, players, session_scores):
             player.score += field.data
-            session_player += field.data
+            score += field.data
+        session['scores'] = session_scores
+        player_scores = [(player, score) for player, score in zip(session_players, session_scores)]
         db.session.commit()
 
         # Checks which button was pressed
@@ -73,14 +78,17 @@ def game():
         elif form.end_game.data:
             return redirect(url_for('final_scores'))
     return render_template('game.html', form=form, players=players, num_players=num_players,
-                           session_players=session_players)
+                           player_scores=player_scores)
 
 
 # final scores
 @app.route("/final_scores", methods=['GET', 'POST'])
 def final_scores():
     players = Player.query.all()
+    session_players = session.get('players', None)
+    session_scores = session.get('scores', None)
     form = FinalScoreForm()
     if form.validate_on_submit():
         return redirect(url_for('start_game'))
-    return render_template('final_scores.html', form=form, players=players)
+    return render_template('final_scores.html', form=form, players=players,
+                           session_players=session_players, session_scores=session_scores)

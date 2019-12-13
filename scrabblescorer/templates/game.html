@@ -6,8 +6,8 @@
             <fieldset class="list-group">
                 <legend class="border-bottom mb-4">Current Scores</legend>
                 <div>
-                    {% for player in session_players %}
-                        <p class="text-justify"> {{player.player}}: {{player.score}} </p>
+                    {% for player, score in player_scores %}
+                        <p class="text-justify"> {{player}}: {{score}} </p>
                     {% endfor %}
                 </div>
             </fieldset>
