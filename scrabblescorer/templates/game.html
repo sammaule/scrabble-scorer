@@ -3,6 +3,7 @@
     <div class="content-section">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
+<!--            The Current scores -->
             <fieldset class="list-group">
                 <legend class="border-bottom mb-4">Current Scores</legend>
                 <div>
@@ -11,10 +12,11 @@
                     {% endfor %}
                 </div>
             </fieldset>
+<!--            The form to update scores-->
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Update Scores</legend>
                 <div class="form-group">
-                    {{ players[0].player }} {{ form.player_1_score.label(class="form-control-label") }}
+                    {{ player_scores[0][0] }} {{ form.player_1_score.label(class="form-control-label") }}
                     {% if form.player_1_score.errors %}
                         {{ form.player_1_score(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
@@ -27,7 +29,7 @@
                     {% endif %}
                 </div>
                 <div class="form-group">
-                    {{ players[1].player }} {{ form.player_2_score.label(class="form-control-label") }}
+                    {{ player_scores[1][0] }} {{ form.player_2_score.label(class="form-control-label") }}
                     {% if form.player_2_score.errors %}
                         {{ form.player_2_score(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
@@ -41,7 +43,7 @@
                 </div>
                 {% if num_players =='3' or num_players=='4' %}
                     <div class="form-group">
-                        {{ players[2].player }} {{ form.player_3_score.label(class="form-control-label") }}
+                        {{ player_scores[2][0] }} {{ form.player_3_score.label(class="form-control-label") }}
                         {% if form.player_3_score.errors %}
                             {{ form.player_3_score(class="form-control form-control-lg is-invalid") }}
                             <div class="invalid-feedback">
@@ -56,7 +58,7 @@
                 {% endif %}
                 {% if num_players=='4' %}
                     <div class="form-group">
-                        {{ players[3].player }} {{ form.player_4_score.label(class="form-control-label") }}
+                        {{ player_scores[3][0] }} {{ form.player_4_score.label(class="form-control-label") }}
                         {% if form.player_4_score.errors %}
                             {{ form.player_4_score(class="form-control form-control-lg is-invalid") }}
                             <div class="invalid-feedback">

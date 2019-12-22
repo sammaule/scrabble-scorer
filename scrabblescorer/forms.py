@@ -80,8 +80,7 @@ class FourPlayerNameForm(FlaskForm):
                                   validators=[DataRequired()])
     player_4_name = StringField('Player 4 name:',
                                   validators=[DataRequired()])
-    submit = SubmitField('Update Scores')
-    end_game = SubmitField('End Game')
+    submit = SubmitField('Start Game')
 
 
 class FinalScoreForm(FlaskForm):

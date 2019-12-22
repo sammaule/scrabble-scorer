@@ -5,6 +5,7 @@
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Enter Names</legend>
+                {{ num_players }}
                 {% for field in form %}
                 {% if field.type == "StringField" %}
                 <div class="form-group">
